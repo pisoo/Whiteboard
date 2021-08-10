@@ -9,7 +9,11 @@ import UIKit
 
 class WhiteboardView: UIView {
     
+    
+    var isAdd = false
+    
     // MARK: init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -22,8 +26,11 @@ class WhiteboardView: UIView {
     
     
     // MARK: ui
+    
     func customLayout() {
         
         self.backgroundColor = .red
     }
+    
+  
 }
