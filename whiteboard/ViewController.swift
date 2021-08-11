@@ -64,6 +64,29 @@ class ViewController: UIViewController {
                 make.center.equalToSuperview()
             }
             
+            pan = UIPanGestureRecognizer.init(target: self,
+                                              action: #selector(handlePan))
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(pan)
+            
+            
+            
+            let pinchGesture = UIPinchGestureRecognizer(target: self,
+                                                        action: #selector(pinchView))
+            pinchGesture.delegate = self
+            view.addGestureRecognizer(pinchGesture)
+            imageView.addGestureRecognizer(pinchGesture)
+            
+            
+            let rotationGesture = UIRotationGestureRecognizer(target: self,
+                                                              action: #selector(rotateView))
+            rotationGesture.delegate = self
+            view.addGestureRecognizer(rotationGesture)
+            imageView.addGestureRecognizer(rotationGesture)
+            
+
+            
+            
         }
 //        if let CGImage = backImage.cgImage {
 //            backImage = UIImage(
@@ -74,6 +97,30 @@ class ViewController: UIViewController {
 
         
     }
+    
+    @objc func pinchView(_ pinchGestureRecognizer: UIPinchGestureRecognizer?) {
+        let view = pinchGestureRecognizer?.view
+        if pinchGestureRecognizer?.state == .began || pinchGestureRecognizer?.state == .changed {
+            if let transform = view?.transform.scaledBy(x: pinchGestureRecognizer?.scale ?? 0.0, y: pinchGestureRecognizer?.scale ?? 0.0) {
+                view?.transform = transform
+            }
+            pinchGestureRecognizer?.scale = 1
+        }
+    }
+    
+    
+    @objc func rotateView(_ rotationGestureRecognizer: UIRotationGestureRecognizer?) {
+        
+        let view = rotationGestureRecognizer?.view
+        if rotationGestureRecognizer?.state == .began || rotationGestureRecognizer?.state == .changed {
+            if let transform = view?.transform.rotated(by: rotationGestureRecognizer?.rotation ?? 0.0) {
+                view?.transform = transform
+            }
+            rotationGestureRecognizer?.rotation = 0
+        }
+    }
+    
+    
 
     func addWhiteboardView() {
         
@@ -108,6 +155,25 @@ class ViewController: UIViewController {
             
             let point = pan.translation(in: whiteboardView)
             print("point = \(point)")
+        }
+    }
+    
+    @objc func handlePan(_ recognizer: UIPanGestureRecognizer?) {
+        if recognizer?.state == .began {
+            print("FlyElephant---视图拖动开始")
+        } else if recognizer?.state == .changed {
+            let location = recognizer?.location(in: view)
+
+            if (location?.y ?? 0.0) < 0 || (location?.y ?? 0.0) > view.bounds.size.height {
+                return
+            }
+            let translation = recognizer?.translation(in: view)
+
+            print("当前视图在View的位置:\(NSCoder.string(for: location ?? CGPoint.zero))----平移位置:\(NSCoder.string(for: translation ?? CGPoint.zero))")
+            recognizer?.view?.center = CGPoint(x: (recognizer?.view?.center.x ?? 0.0) + (translation?.x ?? 0.0), y: (recognizer?.view?.center.y ?? 0.0) + (translation?.y ?? 0.0))
+            recognizer?.setTranslation(CGPoint.zero, in: view)
+        } else if recognizer?.state == .ended || recognizer?.state == .cancelled {
+            print("FlyElephant---视图拖动结束")
         }
     }
     
@@ -258,3 +324,16 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: UIGestureRecognizerDelegate {
+    
+    // 允许同时识别在同一视图上的特定手势
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer.view == self.imageView && otherGestureRecognizer.view == self.imageView {
+//            if !type(of: gestureRecognizer) === UILongPressGestureRecognizer.self && !type(of: otherGestureRecognizer) === UILongPressGestureRecognizer.self {
+                return true
+//            }
+        }
+        return false
+    }
+    
+}
