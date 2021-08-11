@@ -18,6 +18,9 @@ class ViewController: UIViewController {
     
     var selectedAreaView: UIView!
     var selectedAreaStarPoint: CGPoint!
+    
+    
+    var textImageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +57,10 @@ class ViewController: UIViewController {
             imageView.image = originImage
             imageBackgroundView.addSubview(imageView)
             imageView.snp.makeConstraints{ (make) -> Void in
-                make.width.equalToSuperview()
-                make.height.equalTo(imageView.snp.width)
+//                make.width.equalToSuperview()
+//                make.height.equalTo(imageView.snp.width)
+                make.width.equalTo(100)
+                make.height.equalTo(100)
                 make.center.equalToSuperview()
             }
             
@@ -113,7 +118,9 @@ class ViewController: UIViewController {
         
         print("touchesBegan point = \(String(describing: touches.first?.location(in: self.view)))")
         
-        self.selectedAreaStarPoint = touches.first?.location(in: self.view)
+        // 选取截图
+//        self.selectedAreaStarPoint = touches.first?.location(in: self.view)
+        // 左右拖动
 //        self.updateSubviews(currentPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
     }
     
@@ -121,24 +128,37 @@ class ViewController: UIViewController {
         super.touchesMoved(touches, with: event)
         
         print("touchesMoved point = \(String(describing: touches.first?.location(in: self.view)))")
+        // 左右拖动
 //        self.updateSubviews(currentPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
-        self.updateSelectedAreaView(movedPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
+        // 选取截图
+//        self.updateSelectedAreaView(movedPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         
         print("touchesEnded point = \(String(describing: touches.first?.location(in: self.view)))")
+        // 左右拖动
 //        self.updateSubviews(currentPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
-        self.updateSelectedAreaView(movedPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
+        // 选取截图
+//        self.updateSelectedAreaView(movedPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
+        
+        // 开始截图
+        let aaa = self.view.convert(self.selectedAreaView.frame, to: self.imageView)
+        self.getCurrentInnerViewShot(self.view, atFrame:self.selectedAreaView.frame)
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         
         print("touchesCancelled point = \(String(describing: touches.first?.location(in: self.view)))")
+        // 左右拖动
 //        self.updateSubviews(currentPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
-        self.updateSelectedAreaView(movedPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
+        
+        // 选取截图
+//        self.updateSelectedAreaView(movedPoint: touches.first?.location(in: self.view) ?? CGPoint.zero)
+        
+        
     }
     
     
@@ -173,6 +193,68 @@ class ViewController: UIViewController {
         let endY = (self.selectedAreaStarPoint.y < movedPoint.y) ? movedPoint.y :  self.selectedAreaStarPoint.y
         
         selectedAreaView.frame = CGRect.init(x: starX, y: starY, width: endX - starX, height: endY - starY)
+    }
+    
+    
+    func getCurrentInnerViewShot(_ innerView: UIView?, atFrame rect: CGRect) {
+        self.selectedAreaView.frame = CGRect.zero
+        
+        UIGraphicsBeginImageContext(view?.frame.size ?? CGSize.zero)
+        let context = UIGraphicsGetCurrentContext()
+        context?.saveGState()
+        UIRectClip(rect)
+        if let context = context {
+            view?.layer.render(in: context)
+        }
+        UIColor.clear.setFill()
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let cgImage = image?.cgImage?.cropping(to: rect)
+        var returnImage: UIImage? = nil
+        if let cgImage = cgImage {
+            returnImage = UIImage(cgImage: cgImage)
+        }
+//        CGImageRelease(cgImage)
+        UIGraphicsEndImageContext()
+    
+//        UIGraphicsEndImageContext()
+
+        
+        textImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: rect.width, height: rect.height))
+        textImageView.backgroundColor = .yellow
+        textImageView.image = returnImage
+//        textImageView.contentMode = .scaleAspectFit
+        whiteboardView.addSubview(textImageView)
+        
+//        textImageView.snp.makeConstraints{ (make) -> Void in
+//            make.top.left.equalToSuperview()
+//            make.width.equalTo(rect.width)
+//            make.height.equalTo(rect.height)
+//        }
+        
+        
+        
+    }
+    
+    
+    func cutImage(from view: UIView?, andFrame rect: CGRect) -> UIImage? {
+        UIGraphicsBeginImageContext(view?.frame.size ?? CGSize.zero)
+        let context = UIGraphicsGetCurrentContext()
+        context?.saveGState()
+        UIRectClip(rect)
+        if let context = context {
+            view?.layer.render(in: context)
+        }
+        UIColor.clear.setFill()
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let cgImage = image?.cgImage?.cropping(to: rect)
+        var returnImage: UIImage? = nil
+        if let cgImage = cgImage {
+            returnImage = UIImage(cgImage: cgImage)
+        }
+ 
+        UIGraphicsEndImageContext()
+
+        return returnImage
     }
 }
 
