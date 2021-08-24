@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2C0494DEF5E0F0F264A01E3D /* Pods_whiteboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8DFE911D43AE2EE0B83BA7 /* Pods_whiteboard.framework */; };
+		A451938D26D48756006701F4 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A451938C26D48756006701F4 /* MainController.swift */; };
+		A451938F26D48807006701F4 /* A.swift in Sources */ = {isa = PBXBuildFile; fileRef = A451938E26D48807006701F4 /* A.swift */; };
 		A481002E26C0B9EF000CA4DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481002D26C0B9EF000CA4DA /* AppDelegate.swift */; };
 		A481003026C0B9EF000CA4DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481002F26C0B9EF000CA4DA /* SceneDelegate.swift */; };
 		A481003226C0B9EF000CA4DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481003126C0B9EF000CA4DA /* ViewController.swift */; };
@@ -20,6 +22,8 @@
 /* Begin PBXFileReference section */
 		0E8DFE911D43AE2EE0B83BA7 /* Pods_whiteboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_whiteboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F82BE6CA1D14621F49CD66F /* Pods-whiteboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whiteboard.release.xcconfig"; path = "Target Support Files/Pods-whiteboard/Pods-whiteboard.release.xcconfig"; sourceTree = "<group>"; };
+		A451938C26D48756006701F4 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		A451938E26D48807006701F4 /* A.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = A.swift; sourceTree = "<group>"; };
 		A481002A26C0B9EF000CA4DA /* whiteboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whiteboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A481002D26C0B9EF000CA4DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A481002F26C0B9EF000CA4DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +69,7 @@
 		A481002C26C0B9EF000CA4DA /* whiteboard */ = {
 			isa = PBXGroup;
 			children = (
+				A451938E26D48807006701F4 /* A.swift */,
 				A481002D26C0B9EF000CA4DA /* AppDelegate.swift */,
 				A481002F26C0B9EF000CA4DA /* SceneDelegate.swift */,
 				A481003126C0B9EF000CA4DA /* ViewController.swift */,
@@ -73,6 +78,7 @@
 				A481003826C0B9F1000CA4DA /* LaunchScreen.storyboard */,
 				A481003B26C0B9F1000CA4DA /* Info.plist */,
 				A481004126C0BD4D000CA4DA /* WhiteboardView.swift */,
+				A451938C26D48756006701F4 /* MainController.swift */,
 			);
 			path = whiteboard;
 			sourceTree = "<group>";
@@ -211,7 +217,9 @@
 				A481003226C0B9EF000CA4DA /* ViewController.swift in Sources */,
 				A481002E26C0B9EF000CA4DA /* AppDelegate.swift in Sources */,
 				A481003026C0B9EF000CA4DA /* SceneDelegate.swift in Sources */,
+				A451938F26D48807006701F4 /* A.swift in Sources */,
 				A481004226C0BD4D000CA4DA /* WhiteboardView.swift in Sources */,
+				A451938D26D48756006701F4 /* MainController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
