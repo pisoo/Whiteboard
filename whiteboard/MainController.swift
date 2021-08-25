@@ -10,7 +10,7 @@ import UIKit
 class MainController: UIViewController {
     
     var toolView: UIView!
-    var leftView: UIView!
+    var leftView: LeftView!
     var rightView: UIView!
     var slideView: UIView!
     
@@ -64,6 +64,7 @@ class MainController: UIViewController {
                 isPortrait ? updateSlideVerticalViews(point) : updateSlideHorizontalViews(point)
             }
         }
+        
     }
     
     func updateSlideVerticalViews(_ point: CGPoint) {
@@ -119,7 +120,7 @@ class MainController: UIViewController {
         toolView.backgroundColor = .red
         view.addSubview(toolView)
         
-        leftView = UIView.init()
+        leftView = LeftView.init()
         leftView.backgroundColor = .lightGray
         view.addSubview(leftView)
         
@@ -129,7 +130,7 @@ class MainController: UIViewController {
         
         slideView = UIView.init()
         slideView.backgroundColor = .green
-        slideView.isHidden = true
+//        slideView.isHidden = true
         view.addSubview(slideView)
     }
     

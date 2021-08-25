@@ -10,6 +10,9 @@
 		2C0494DEF5E0F0F264A01E3D /* Pods_whiteboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8DFE911D43AE2EE0B83BA7 /* Pods_whiteboard.framework */; };
 		A451938D26D48756006701F4 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A451938C26D48756006701F4 /* MainController.swift */; };
 		A451938F26D48807006701F4 /* A.swift in Sources */ = {isa = PBXBuildFile; fileRef = A451938E26D48807006701F4 /* A.swift */; };
+		A451939126D48A74006701F4 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A451939026D48A74006701F4 /* ToolView.swift */; };
+		A4687B9426D4DE0E00C9E25B /* LeftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4687B9326D4DE0E00C9E25B /* LeftView.swift */; };
+		A4687B9626D4E5EB00C9E25B /* UIViewTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4687B9526D4E5EB00C9E25B /* UIViewTouch.swift */; };
 		A481002E26C0B9EF000CA4DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481002D26C0B9EF000CA4DA /* AppDelegate.swift */; };
 		A481003026C0B9EF000CA4DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481002F26C0B9EF000CA4DA /* SceneDelegate.swift */; };
 		A481003226C0B9EF000CA4DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481003126C0B9EF000CA4DA /* ViewController.swift */; };
@@ -24,6 +27,9 @@
 		0F82BE6CA1D14621F49CD66F /* Pods-whiteboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whiteboard.release.xcconfig"; path = "Target Support Files/Pods-whiteboard/Pods-whiteboard.release.xcconfig"; sourceTree = "<group>"; };
 		A451938C26D48756006701F4 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		A451938E26D48807006701F4 /* A.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = A.swift; sourceTree = "<group>"; };
+		A451939026D48A74006701F4 /* ToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
+		A4687B9326D4DE0E00C9E25B /* LeftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftView.swift; sourceTree = "<group>"; };
+		A4687B9526D4E5EB00C9E25B /* UIViewTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewTouch.swift; sourceTree = "<group>"; };
 		A481002A26C0B9EF000CA4DA /* whiteboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whiteboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A481002D26C0B9EF000CA4DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A481002F26C0B9EF000CA4DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +85,9 @@
 				A481003B26C0B9F1000CA4DA /* Info.plist */,
 				A481004126C0BD4D000CA4DA /* WhiteboardView.swift */,
 				A451938C26D48756006701F4 /* MainController.swift */,
+				A451939026D48A74006701F4 /* ToolView.swift */,
+				A4687B9326D4DE0E00C9E25B /* LeftView.swift */,
+				A4687B9526D4E5EB00C9E25B /* UIViewTouch.swift */,
 			);
 			path = whiteboard;
 			sourceTree = "<group>";
@@ -218,8 +227,11 @@
 				A481002E26C0B9EF000CA4DA /* AppDelegate.swift in Sources */,
 				A481003026C0B9EF000CA4DA /* SceneDelegate.swift in Sources */,
 				A451938F26D48807006701F4 /* A.swift in Sources */,
+				A4687B9626D4E5EB00C9E25B /* UIViewTouch.swift in Sources */,
+				A451939126D48A74006701F4 /* ToolView.swift in Sources */,
 				A481004226C0BD4D000CA4DA /* WhiteboardView.swift in Sources */,
 				A451938D26D48756006701F4 /* MainController.swift in Sources */,
+				A4687B9426D4DE0E00C9E25B /* LeftView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
