@@ -54,6 +54,8 @@ class MainController: UIViewController {
     override func targetViewDidSlide(_ touches: Set<UITouch>) {
         super.targetViewDidSlide(touches)
         
+        print("AAA")
+        
         if slideView.isHidden == true { return }
         if let isInSlideView = touches.first?.view?.isDescendant(of: slideView) {
             if isInSlideView, let point = touches.first?.location(in: self.view) {
@@ -64,7 +66,6 @@ class MainController: UIViewController {
                 isPortrait ? updateSlideVerticalViews(point) : updateSlideHorizontalViews(point)
             }
         }
-        
     }
     
     func updateSlideVerticalViews(_ point: CGPoint) {

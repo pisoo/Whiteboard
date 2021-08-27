@@ -22,6 +22,8 @@ class LeftView: UIView {
     var contentWidthConstraint: NSLayoutConstraint!
     var contentHeightConstraint: NSLayoutConstraint!
     
+    var areaView: UIView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -56,6 +58,7 @@ class LeftView: UIView {
         maxContentWidth = imageWidth
         
         imageView0 = UIImageView.init()
+        imageView0.isUserInteractionEnabled = true
         imageView0.image = UIImage.init(named: "0")!
         scrollView.addSubview(imageView0)
         imageView0.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +68,17 @@ class LeftView: UIView {
         contentHeightConstraint.isActive = true
         imageView0.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         imageView0.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
+        
+        
+//        let view = TestView.init()
+//        view.backgroundColor = .cyan
+//        self.addSubview(view)
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+//        view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+//        view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+//        view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
     
@@ -97,3 +111,95 @@ class LeftView: UIView {
     }
 }
 
+
+
+
+
+
+protocol Test {
+    
+    var coverView: UIView { get }
+    var startPoint: CGPoint { get }
+    
+    func aaa()
+}
+
+extension Test {
+    
+    var coverView: UIView {
+        let view = UIView.init()
+        view.backgroundColor = .red
+        return view
+    }
+    
+
+}
+
+extension UIImageView: Test {
+    
+    var startPoint: CGPoint {
+        get {
+            return CGPoint.init()
+        }
+    }
+    
+    
+    
+    func aaa() {
+        
+    }
+        
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        if let isInContent = touches.first?.view?.isDescendant(of: self) {
+            if isInContent, let point = touches.first?.location(in: self) {
+                
+                self.startPoint = point
+            }
+        }
+    }
+    
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        
+        if let isInContent = touches.first?.view?.isDescendant(of: self) {
+            if isInContent, let point = touches.first?.location(in: self) {
+                
+                updateSelectedAreaView(movedPoint: point)
+            }
+        }
+    }
+    
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
+        if let isInContent = touches.first?.view?.isDescendant(of: self) {
+            if isInContent, let point = touches.first?.location(in: self) {
+                
+                updateSelectedAreaView(movedPoint: point)
+            }
+        }
+    }
+    
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        
+        if let isInContent = touches.first?.view?.isDescendant(of: self) {
+            if isInContent, let point = touches.first?.location(in: self) {
+                
+                updateSelectedAreaView(movedPoint: point)
+            }
+        }
+    }
+    
+    func updateSelectedAreaView(movedPoint: CGPoint) {
+        
+        let starX = (self.startPoint.x > movedPoint.x) ? movedPoint.x :  self.startPoint.x
+        let starY = (self.startPoint.y > movedPoint.y) ? movedPoint.y :  self.startPoint.y
+        let endX = (self.startPoint.x < movedPoint.x) ? movedPoint.x :  self.startPoint.x
+        let endY = (self.startPoint.y < movedPoint.y) ? movedPoint.y :  self.startPoint.y
+        
+        self.coverView.frame = CGRect.init(x: starX, y: starY, width: endX - starX, height: endY - starY)
+    }
+}

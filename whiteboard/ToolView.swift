@@ -29,6 +29,10 @@ class ToolView: UIView {
     
     func addViews() {
         
+        screenshotsButton = UIButton.init(type: .custom)
+        screenshotsButton.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+        self.addSubview(screenshotsButton)
+        
         
     }
     
