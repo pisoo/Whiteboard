@@ -57,10 +57,20 @@ class RightView: UIView {
         
         if gestureRecognizer?.state == .changed {
             
+            if let view = gestureRecognizer?.view {
+                view.alpha = 0.5
+            }
+            
             let translation = gestureRecognizer?.translation(in: self)
             gestureRecognizer?.view?.center = CGPoint(x: (gestureRecognizer?.view?.center.x ?? 0.0) + (translation?.x ?? 0.0),
                                                       y: (gestureRecognizer?.view?.center.y ?? 0.0) + (translation?.y ?? 0.0))
             gestureRecognizer?.setTranslation(CGPoint.zero, in: self)
+        }
+        
+        if gestureRecognizer?.state == .ended {
+            if let view = gestureRecognizer?.view {
+                view.alpha = 1
+            }
         }
     }
     
