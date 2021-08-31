@@ -11,7 +11,7 @@ class MainController: UIViewController {
     
     var toolView: UIView!
     var leftView: LeftView!
-    var rightView: UIView!
+    var rightView: RightView!
     var slideView: UIView!
     
     override func viewDidLoad() {
@@ -19,10 +19,18 @@ class MainController: UIViewController {
 
         addViews()
         addActions()
+        aaa()
         
         let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
         let isPortrait = (orientation == .portrait) || (orientation == .portraitUpsideDown)
         isPortrait ? updateVerticalViews() : updateHorizontalViews()
+    }
+    
+    func aaa() {
+        
+        self.leftView.finishScreenshot = { (image, size) -> () in
+            self.rightView.addImageView(image!, size)
+        }
     }
     
     
@@ -117,6 +125,10 @@ class MainController: UIViewController {
     
     func addViews() {
         
+        rightView = RightView.init()
+//        rightView.backgroundColor = .blue
+        view.addSubview(rightView)
+        
         toolView = UIView.init()
         toolView.backgroundColor = .red
         view.addSubview(toolView)
@@ -125,9 +137,7 @@ class MainController: UIViewController {
         leftView.backgroundColor = .lightGray
         view.addSubview(leftView)
         
-        rightView = UIView.init()
-//        rightView.backgroundColor = .blue
-        view.addSubview(rightView)
+
         
         slideView = UIView.init()
         slideView.backgroundColor = .green
@@ -171,9 +181,9 @@ class MainController: UIViewController {
                                      height: UIScreen.currentHeight() - 60)
         
         rightView.frame = CGRect.init(x: UIScreen.currentWidth(),
-                                      y: 0,
+                                      y: 60,
                                       width: 0,
-                                      height: UIScreen.currentHeight())
+                                      height: UIScreen.currentHeight() - 60)
         
         slideView.frame = CGRect.init(x: UIScreen.currentWidth() - 60,
                                       y: UIScreen.currentHeight() * 0.5 - 30,

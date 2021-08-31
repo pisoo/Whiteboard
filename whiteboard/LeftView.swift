@@ -11,7 +11,7 @@ import Combine
 class LeftView: UIView {
     
     var scrollView: UIScrollView!
-    var imageView0: UIImageView!
+    var imageView0: TestImageView!
     var imageView1: UIImageView!
     var imageView2: UIImageView!
     
@@ -23,6 +23,8 @@ class LeftView: UIView {
     var contentHeightConstraint: NSLayoutConstraint!
     
     var areaView: UIView!
+        
+    var finishScreenshot: ((_ image: UIImage?, _ size: CGSize) -> ())!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +59,7 @@ class LeftView: UIView {
         let imageWidth = imageHeight * 5 / 4
         maxContentWidth = imageWidth
         
-        imageView0 = UIImageView.init()
+        imageView0 = TestImageView.init(frame: CGRect.zero)
         imageView0.isUserInteractionEnabled = true
         imageView0.image = UIImage.init(named: "0")!
         scrollView.addSubview(imageView0)
@@ -68,17 +70,10 @@ class LeftView: UIView {
         contentHeightConstraint.isActive = true
         imageView0.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         imageView0.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
-        
-        
-//        let view = TestView.init()
-//        view.backgroundColor = .cyan
-//        self.addSubview(view)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//        view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-//        view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-//        view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        imageView0.screenshotCompletion = { (image, size) -> () in
+            self.finishScreenshot(image, size)
+            self.imageView0.resetAreaView()
+        }
     }
     
     
@@ -119,7 +114,7 @@ class LeftView: UIView {
 protocol Test {
     
     var coverView: UIView { get }
-    var startPoint: CGPoint { get }
+//    var startPoint: CGPoint { get }
     
     func aaa()
 }
@@ -155,7 +150,7 @@ extension UIImageView: Test {
         if let isInContent = touches.first?.view?.isDescendant(of: self) {
             if isInContent, let point = touches.first?.location(in: self) {
                 
-                self.startPoint = point
+//                self.startPoint = point
             }
         }
     }
