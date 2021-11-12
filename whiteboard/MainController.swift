@@ -29,7 +29,12 @@ class MainController: UIViewController {
     func aaa() {
         
         self.leftView.finishScreenshot = { (image, size) -> () in
-            self.rightView.addImageView(image!, size)
+//            self.rightView.addImageView(image!, size)
+            
+            
+//            let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+//            let isPortrait = (orientation == .portrait) || (orientation == .portraitUpsideDown)
+//            isPortrait ? self.updateAnimateVerticalViews(0.25) : self.updateAnimatHorizontalViews(0.25)
         }
     }
     
@@ -131,7 +136,7 @@ class MainController: UIViewController {
         
         toolView = UIView.init()
         toolView.backgroundColor = .red
-        view.addSubview(toolView)
+//        view.addSubview(toolView)
         
         leftView = LeftView.init()
         leftView.backgroundColor = .lightGray
@@ -153,9 +158,9 @@ class MainController: UIViewController {
                                      height: 60)
         
         leftView.frame = CGRect.init(x: 0,
-                                     y: 60,
+                                     y: 0,
                                      width: UIScreen.currentWidth(),
-                                     height: UIScreen.currentHeight() - 60)
+                                     height: UIScreen.currentHeight())
         
         rightView.frame = CGRect.init(x: 0,
                                       y: UIScreen.currentHeight(),
@@ -176,14 +181,14 @@ class MainController: UIViewController {
                                      height: 60)
                 
         leftView.frame = CGRect.init(x: 0,
-                                     y: 60,
+                                     y: 0,
                                      width: UIScreen.currentWidth(),
-                                     height: UIScreen.currentHeight() - 60)
+                                     height: UIScreen.currentHeight() )
         
         rightView.frame = CGRect.init(x: UIScreen.currentWidth(),
-                                      y: 60,
+                                      y: 0,
                                       width: 0,
-                                      height: UIScreen.currentHeight() - 60)
+                                      height: UIScreen.currentHeight())
         
         slideView.frame = CGRect.init(x: UIScreen.currentWidth() - 60,
                                       y: UIScreen.currentHeight() * 0.5 - 30,
@@ -220,7 +225,12 @@ class MainController: UIViewController {
                                                    width: 60,
                                                    height: 60)
             }
-
+            
+        } completion: { finish in
+            
+            // 更新 content 显示
+            self.leftView.imageView0.removeConstraints(self.leftView.imageView0.constraints)
+            self.leftView.updateHorizontalViews()
         }
     }
     
@@ -250,6 +260,13 @@ class MainController: UIViewController {
                                                    width: 60,
                                                    height: 60)
             }
+            
+
+        } completion: { finish in
+            
+            // 更新 content 显示
+            self.leftView.imageView0.removeConstraints(self.leftView.imageView0.constraints)
+            self.leftView.updateHorizontalViews()
         }
     }
     

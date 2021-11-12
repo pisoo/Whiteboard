@@ -90,9 +90,9 @@
 				A481004126C0BD4D000CA4DA /* WhiteboardView.swift */,
 				A451938C26D48756006701F4 /* MainController.swift */,
 				A451939026D48A74006701F4 /* ToolView.swift */,
-				A4687B9326D4DE0E00C9E25B /* LeftView.swift */,
 				A4687B9526D4E5EB00C9E25B /* UIViewTouch.swift */,
 				A41CD5CE26DCB75800F343EC /* TestImageView.swift */,
+				A4687B9326D4DE0E00C9E25B /* LeftView.swift */,
 				A4F4955026DDD7F00031FE8A /* RightView.swift */,
 			);
 			path = whiteboard;

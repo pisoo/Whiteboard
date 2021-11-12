@@ -16,6 +16,7 @@ class LeftView: UIView {
     var imageView2: UIImageView!
     
     var maxContentWidth: CGFloat = 0
+    var maxContentHeight: CGFloat = 0
     var cancellable: Cancellable?
     
     //
@@ -53,16 +54,27 @@ class LeftView: UIView {
         scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         scrollView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         scrollView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        
-        
-        let imageHeight = UIScreen.currentHeight() - 60
-        let imageWidth = imageHeight * 5 / 4
-        maxContentWidth = imageWidth
-        
+                        
         imageView0 = TestImageView.init(frame: CGRect.zero)
         imageView0.isUserInteractionEnabled = true
         imageView0.image = UIImage.init(named: "0")!
         scrollView.addSubview(imageView0)
+        imageView0.screenshotCompletion = { (image, size) -> () in
+            self.finishScreenshot(image, size)
+            self.imageView0.resetAreaView()
+        }
+        
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        let isPortrait = (orientation == .portrait) || (orientation == .portraitUpsideDown)
+        isPortrait ? updateVerticalViews() : updateHorizontalViews()
+    }
+    
+    func updateVerticalViews()  {
+        
+        let imageWidth = UIScreen.currentWidth()
+        let imageHeight = imageWidth * 4 / 5
+        maxContentHeight = imageHeight
+        
         imageView0.translatesAutoresizingMaskIntoConstraints = false
         contentWidthConstraint = imageView0.widthAnchor.constraint(equalToConstant: imageWidth)
         contentWidthConstraint.isActive = true
@@ -70,10 +82,22 @@ class LeftView: UIView {
         contentHeightConstraint.isActive = true
         imageView0.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         imageView0.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        imageView0.screenshotCompletion = { (image, size) -> () in
-            self.finishScreenshot(image, size)
-            self.imageView0.resetAreaView()
-        }
+        
+    }
+    
+    func updateHorizontalViews() {
+        
+        let imageHeight = UIScreen.currentHeight()
+        let imageWidth = imageHeight * 5 / 4
+        maxContentWidth = imageWidth
+        
+        imageView0.translatesAutoresizingMaskIntoConstraints = false
+        contentWidthConstraint = imageView0.widthAnchor.constraint(equalToConstant: imageWidth)
+        contentWidthConstraint.isActive = true
+        contentHeightConstraint = imageView0.heightAnchor.constraint(equalToConstant: imageHeight)
+        contentHeightConstraint.isActive = true
+        imageView0.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        imageView0.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
     
     
@@ -92,17 +116,45 @@ class LeftView: UIView {
     
     func updateContentSize() {
         
-        contentWidthConstraint.constant = getContentWidth()
-        contentHeightConstraint.constant = getContentHeight()
-    }
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        let isPortrait = (orientation == .portrait) || (orientation == .portraitUpsideDown)
+        
+        
+        if isPortrait {
+            
+            contentWidthConstraint.constant = getVerticalContentWidth()
+            contentHeightConstraint.constant = getVerticalContentHeight()
+        }
+        else {
+            
+            contentWidthConstraint.constant = getHorizontalContentWidth()
+            contentHeightConstraint.constant = getHorizontalContentHeight()
+        }
+        
 
-    func getContentWidth() -> CGFloat {
+    }
+    
+    // vertical
+    
+    func getVerticalContentWidth() -> CGFloat {
+        return getVerticalContentHeight() * 5 / 4
+
+    }
+    
+    func getVerticalContentHeight() -> CGFloat {
+        return (self.bounds.height >= maxContentHeight) ? maxContentHeight : self.bounds.height
+    }
+    
+
+    // horizontal
+    
+    func getHorizontalContentWidth() -> CGFloat {
         return (self.bounds.width >= maxContentWidth) ? maxContentWidth : self.bounds.width
 
     }
     
-    func getContentHeight() -> CGFloat {
-        return getContentWidth() * 4 / 5
+    func getHorizontalContentHeight() -> CGFloat {
+        return getHorizontalContentWidth() * 4 / 5
     }
 }
 
